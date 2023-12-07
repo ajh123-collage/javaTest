@@ -1,0 +1,316 @@
+----------------------------------------------------------------
+Release: 11.12.7, Date: November 2nd 2023
+----------------------------------------------------------------
+
+** BUG FIXES
+
+    ** #58 - Links do not display correctly when changing row height
+    ** #61 - Lasso can break navigation by dragging
+    ** #66 - Links are pointing to nowhere
+
+
+----------------------------------------------------------------
+Release: 11.12.6, Date: January 30th 2023
+----------------------------------------------------------------
+
+** BUG FIXES (Switched to GitHub Issue Management System)
+
+    ** #60 - It is no longer possible to handle the key press during the dragging of an activity
+
+----------------------------------------------------------------
+Release: 11.12.5, Date: March 30th 2022
+----------------------------------------------------------------
+
+** BUG FIXES
+
+   ** FLEXFX-359 - Now line is not straight after zooming in
+   ** FLEXFX-356 - yOffset is not working when ChartLayout max and min values are the same.
+   ** FLEXFX-357 - Auto hide scrollbar causes weird behaviour.
+   ** FLEXFX-358 - With turned off auto hide TimelineScrollbar position is fixed.
+
+
+----------------------------------------------------------------
+Release: 11.12.4, Date: April 21st 2021
+----------------------------------------------------------------
+
+** ENHANCEMENTS
+
+   ** The "horizon" scrollbar now ensures that the horizon end date will be shown on
+      the right edge of the graphics area. Before this change the user could scroll the
+      horizon end time to be on the left edge of the viewport.
+
+----------------------------------------------------------------
+Release: 11.12.3, Date: March 2021
+----------------------------------------------------------------
+
+** NEW
+
+   ** Added methods on Timeline for showing / scrolling to a given date or a given zoned date
+      time. Before it was only possible to pass an instant.
+   ** Added an option on GanttChartBase to specify the scrollbar type to use for scrolling
+      horizontally in time. So far the scrollbar allowed for infinite scrolling. This version
+      adds a standard ("normal") scrollbar that allows the user to scroll within a given time
+      horizon. Applications can also choose to completely remove the scrollbar.
+   ** Added an option on GanttChartBase to specify whether the horizontal scrollbars on the
+      left-hand side and the right-hand side should auto-hide when not used. Auto-hiding
+      was actually the behaviour all the time. Being able to specify that the scrollbars
+      should "not" auto-hide is the new feature.
+
+** ENHANCEMENTS
+
+    ** The RowCanvas class now has a full set of snapXYZ() methods and the alignment of the
+       canvas itself and of the activities shown by the canvas have been improved.
+
+** BUGS
+
+    ** Fixed an issue related to daylight saving time and grid lines. When the timeline was
+       showing "hours" granularity with a step rate of 3 or 6 then the grid lines became
+       misaligned. The GridLinesLayer now checks whether a DST was crossed while drawing the
+       grid lines.
+    ** Row controls are now being recreated when the row model object changes so that the controls
+       will work for the new row instead of the old row.
+    ** Showing a row header UI could cause flickering when rows were added or removed. Setting
+       the min size of those header nodes to zero width and height fixed the issue.
+
+----------------------------------------------------------------
+Release: 11.12.2, Date: March 3rd, 2021
+----------------------------------------------------------------
+
+** CHANGES
+
+   ** Added a flag called "inverse" to the LassoInfo class. The flag indicates whether
+      the lasso was created in inverse direction, meaning the end time of the lasso was
+      actually BEFORE the start time of the lasso when the user released the mouse.
+   ** The CSS styles .dateline-cell-first and .dateline-cell-last are no longer supported
+      due to the new buffer concepts.
+
+** BUGS
+
+    ** Fixed a styling issue that caused the graphics view header on the right-hand
+       side to become misaligned with the table header on the left-hand side. It was
+       two pixels less high.
+    ** Made sure the time label shown in the first dateline cell remains visible as
+       long as possible. A regression that was introduced with the new buffer concepts
+       caused the label to disappear very quickly and depending on the zoom level it
+       became hard to determine that start date of the dateline.
+
+
+----------------------------------------------------------------
+Release: 11.12.1, August 17th, 2020
+----------------------------------------------------------------
+
+** BUGS
+
+   ** Fixed difference in selection behaviour between Mac and Windows in combination
+      with context menu / popup trigger. Problem was: on Mac the mouse "pressed" event
+      gets marked as a popup trigger. On Windows it is the mouse "released" event.
+
+----------------------------------------------------------------
+Release: 11.12.0, May 14th, 2020
+----------------------------------------------------------------
+
+** CHANGES
+
+   ** Started using system cursors for editing operations in the graphics area. For example
+      Cursor.E_RESIZE to change the end time of an activity. "Old" cursors are still there
+      and can be enabled by calling RowCanvasBehaviour.useCustomCursors().
+   ** Added ability to resize a row / change a row height interactively via the row headers.
+      This gives the user the same ability for resizing as available in the row headers of
+      the tree table.
+   ** Consolidated license keys for Java 8 and Java 11+ version of FlexGanttFX. The versions
+      11.12.x and 8.12.x will now be usable with the same key.
+   ** Moved the timezone label from the dateline to the timeline, as it was not working
+      anymore in combination with a dateline buffer > 0.
+   ** Removed support for dateline scrolling events. These events could not be produced
+      correctly anymore after introducing the dateline buffer concept. Added new "visible
+      time interval" read-only property on Timeline, which can be used instead.
+   ** Enhanced RadarView's performance. Also added auto-redraw upon activity changes.
+
+----------------------------------------------------------------
+Release: 11.11.0, May 2020 (Performance / StillCorona Release)
+----------------------------------------------------------------
+
+>>> THIS IS A MAJOR RELEASE: YOU HAVE TO PURCHASE A NEW LICENSE
+>>> IF YOU HAVEN'T SUBSCRIBED TO THE MAINTENANCE PLAN.
+
+** CHANGES / NEW FEATURES
+
+	** Stopped using PNG icon files. Replaced with Material Design Icons from Ikonli.
+	** Added new method to show / hide links. Added new toolbar button to trigger it.
+	** Changed default font size used in timeline and dateline.
+	** Decreased default height of table header and timeline, now that we use smaller font.
+	** Added new "zoom mode" selector to toolbar
+	** Added new "show / hide scale / row header" button to toolbar
+	** New default value for "show hover interval" is "false"
+	** Added new RowHeader concept to replace things like the ScaleLayer. Renamed previous
+	   RowHeader class to RowHeaderColumn.
+
+** BUGS
+
+	** Fixed bug where grid lines were drawn from previous time unit after zoom operation
+	** Fixed bug where calendar entries (e.g. weekend days) were still drawn even when
+       currently displayed primary time unit does not want to display them.
+	** Fixed bug where too many listeners were added to the timeline when adding and
+       removing Gantt chart instances to a multi Gantt chart container.
+	** Minimized number of canvas redraws for RowCanvas and LinksCanvas by listening to
+       layout pulses from the scene and then drawing instead of immediately drawing all
+       the time. Very similar to "requestLayout" calls, that do not immediately lay out
+       controls but wait for a good point and time and batch multiple calls to one.
+    ** Fixed text color used inside the context menu in the upper left corner of the tree
+       table (used for showing / hiding columns, etc...).
+    ** Added missing support for alpha channel / opacity to LinksCanvas / links drawing.
+
+
+----------------------------------------------------------
+Release: 11.10.0, March 2020 (Performance / Corona Release)
+----------------------------------------------------------
+
+** Replaced LinksPane with LinksCanvas. Links are now drawn via CanvasAPI (much faster).
+** Replaced ObservableList of ActivityLinks with an IntervalTree for faster lookup.
+** ActivityLink can now carry an optional user object.
+** Custom link renderers can be registered on GraphicsBase.
+** Reworked layout code of DatelineScale to work properly with latest CSS changes in JavaFX.
+** Introduced buffers for RowCanvas and DatelineScale to reduce repaints.
+
+-----------------------------------
+Release: 11.9.1, October 24th, 2019
+-----------------------------------
+
+** Bug fix: re-enabled drawing of activity links.
+** Re-added missing API docs / javadocs.
+
+-----------------------------------
+Release: 11.9.0, October 23rd, 2019
+-----------------------------------
+
+** See Release 8.9.0 plus modularity plus JavaFX 11+ support.
+
+** The demo folder and the applications inside of it were removed as building standalone
+   and executable JAR files have become quite difficult to do with the new module system and
+   the fact that JavaFX is now an external dependency.
+
+----------------------------------
+Release: 8.9.0, April 8th, 2019
+----------------------------------
+
+** Bug
+    * [FLEXFX-342] - scale in ChartLayout not aligned
+    * [FLEXFX-344] - RadarView: visibleStartTime/visibleEndTime outside earliestTimeUsed/latestTimeUsed
+    * [FLEXFX-345] - Distorted cursors in MAC OS
+
+** New Feature
+    * [FLEXFX-348] - Add ability to add a frozen row in the time line
+
+** Enhancements
+    * [FLEXFX-319] - Redraw graphics when row calendars change.
+    * [FLEXFX-343] - Visible Area in RadarView
+    * [FLEXFX-349] - Use modena color constants for GraphicsBase
+    * [FLEXFX-350] - Move property sheet support into "extras" module.
+    * [FLEXFX-351] - The style class "zoneIdLabel" should be moved from gantt.css to graphics.css (and renamed).
+
+** Other
+    * Moved style class "zoneIdLabel" from gantt.css to graphics.css. Renamed it to "zone-id-label".
+    * Move property sheet support into "extras" module.
+    * Time labels in Eventline are not mouse transparent causing flickering
+    * CalendarLayer does not define a default renderer for mutable calendar entries
+    * Not using modena color constants for row background colors inside the tree table
+
+
+----------------------------------
+Release: 8.8.1, October 13th, 2017
+----------------------------------
+
+** New Feature
+    * [FLEXFX-329] - Add filter for rows
+
+** Bug
+    * [FLEXFX-324] - There is no i18n for time unit and time zones
+    * [FLEXFX-336] - Cursor / Calendars / Now Line widgets are not bindig with action state
+    * [FLEXFX-337] - Transferring custom data via drag and drop from gantt chart.
+    * [FLEXFX-338] - Memory leak in RowCanvasBehaviour
+    * [FLEXFX-339] - NPE layouting gantt when width is 0
+    * [FLEXFX-340] - Links are not being rendered properly after sorting rows
+
+
+-------------------------------
+Release: 8.8.0, June 19th, 2017
+-------------------------------
+
+** Improvement
+    * [FLEXFX-328] - Improve rendering performance.
+
+** Bug
+    * [FLEXFX-308] - Agenda layout scale does not show hours
+    * [FLEXFX-318] - After changing the size of rows, links are pointing to nowhere
+    * [FLEXFX-325] - Drag indicators stay after dropping outside graphics area
+    * [FLEXFX-326] - Infinite loop rendering dateline in DST change (March 26th)
+    * [FLEXFX-327] - Vertical scrollbar behaves strange when there is only one row visible
+    * [FLEXFX-330] - Too many redraws when scrolling vertically.
+    * [FLEXFX-332] - Timeline scrolls to the right when trying to zoom in with "frozen" time over the set zoom limit
+    * [FLEXFX-333] - Shift + scroll wheel scrolls timeline to the left regardless of scroll direction
+    * [FLEXFX-334] - Horizontal cursor is being drawn on vertical scroll bar.
+    * [FLEXFX-335] - Radar widget / NPE on mousePressed and mouseDragged
+
+----------------------------------
+Release: 1.7.0, October 26th, 2016
+----------------------------------
+
+- Added a manual PDF to the distribution. This is an export of the product's WIKI pages
+  that can normally be found at:
+
+         https://flexgantt.atlassian.net/wiki/display/FFXMAN/FlexGanttFX+Developer+Manual
+
+** Bug
+    * [FLEXFX-306] - Endless automatic horizontal scroll if dragging activities
+    * [FLEXFX-311] - onActivityStartTimeChangeStartedProperty() always returns null
+    * [FLEXFX-313] - TimelineModel HorizonStartTime / HorizonEndTime
+    * [FLEXFX-314] - NPE when expanding or collapsing rows with empty model
+
+** Task
+    * [FLEXFX-315] - Change behaviour of property "smallestTemporalUnit" in TimelineModel class.
+
+** Improvement
+    * [FLEXFX-301] - Too many calls of the GanttChartSkin.updateListRows() method.
+
+-------------------------------
+Release: 1.6.0, July 12th, 2016
+-------------------------------
+
+Highlights:
+
+- Introduced new control: GanttChartLite (graphics only, no treetable)
+- Introduced new containers:
+    DualGanttChartLiteContainer
+    MultiGanttChartLiteContainer
+    QuadGanttChartContainer (displays 4 Gantt charts in sync)
+    QuadGanttChartLiteContainer
+- Introduced base class for (old) GanttChart control and new GanttChartLiteControl: GanttChartBase
+- Moved "dual", "multi" containers into a new package called "container".
+- Renamed GanttChart.getPrimaryMasterDetailPane to GanttChart.getTreeTableMasterDetailPane
+- Renamed / Moved GanttChart.getSecondaryMasterDetailPane to GanttChartBase.getGraphicsMasterDetailPane().
+- Added new filter for activities: GanttChartBase.setActivityFilter(Predicate).
+- Updated to controlsfx version 8.40.11
+
+JIRA tickets:
+
+** Bug
+    * [FLEXFX-202] - GraphicsHeader taken only when creating Skin
+    * [FLEXFX-268] - Unsynchronized tree table and list view models
+    * [FLEXFX-277] - Activity "lost" if dragged to a timeline horizon boundary
+    * [FLEXFX-289] - DragEvent stays accepted during whole event handling
+    * [FLEXFX-292] - Marker lines have wrong height when graphics area resizes
+    * [FLEXFX-294] - Dragged activity sometimes not drawn at cursor location
+    * [FLEXFX-297] - Link rendering broken when target outside viewport
+    * [FLEXFX-298] - Deleting activities with links does not work properly
+
+
+** New Feature
+    * [FLEXFX-291] - Activity Filter
+    * [FLEXFX-295] - Add property to enable / disable the lasso functionality
+    * [FLEXFX-296] - Containers for synchronizing multiple graphics (Dual/MultiGanttChartLiteContainer)
+
+
+** Improvement
+    * [FLEXFX-32] - Provide a way for a row to allow / prevent a drop of an activity
+    * [FLEXFX-103] - Remove timeline completely from Gantt charts with a position other than FIRST or ONLY.
+    * [FLEXFX-299] - Fire single event while setting activity selection

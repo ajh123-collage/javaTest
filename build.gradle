@@ -14,11 +14,25 @@ javafx {
 
 repositories {
     mavenCentral()
+    flatDir {
+        dirs("libs/flexganttfx-11.12.7/lib/")
+    }
+    flatDir {
+        dirs("libs/flexganttfx-11.12.7/ext/")
+    }
 }
 
 dependencies {
     testImplementation(platform("org.junit:junit-bom:5.9.1"))
     testImplementation("org.junit.jupiter:junit-jupiter")
+    implementation("com.flexgantt:extras:11.12.7")
+    implementation("com.flexgantt:model:11.12.7")
+    implementation("com.flexgantt:view:11.12.7")
+    implementation("com.flexgantt:core:11.12.7")
+    implementation("com.smardec:license4j:1.4.0")
+    implementation("org.controlsfx:controlsfx:11.1.1")
+    implementation("org.kordamp.ikonli:ikonli-javafx:12.3.1")
+    implementation("org.kordamp.ikonli:ikonli-materialdesign-pack:12.3.1")
 }
 
 tasks.test {
