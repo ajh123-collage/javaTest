@@ -9,7 +9,7 @@ version = "1.0-SNAPSHOT"
 
 javafx {
     version = "21.0.1"
-    modules = [ "javafx.controls" ]
+    modules = [ "javafx.controls", "javafx.fxml" ]
 }
 
 repositories {
@@ -24,4 +24,16 @@ dependencies {
 tasks.test {
     useJUnitPlatform()
 }
+
 mainClassName = "uk.minersonline.test.Main"
+
+sourceSets {
+    main {
+        java {
+            srcDirs= ["src/main/java"]
+        }
+        resources {
+            srcDirs= ["src/main/resources"]
+        }
+    }
+}
